@@ -76,7 +76,7 @@ class Switchboard(Corpus):
                 sentence = re.sub(r'\W+', ' ', sentence)  # this REGEX removes non alphanumeric characters
                 sentence = ' '.join(sentence.split())  # this is just to make extra spaces collapse
                 DA_tag = self.estimator.sw_to_damsl(sw_tag, prev_DAs[speaker])
-                csv_corpus.append((sentence, DA_tag, prev_DAs[speaker], segment, None, None))
+                csv_corpus.append((sentence, DA_tag, None, None, None, None))
                 prev_DAs[speaker] = DA_tag
         return csv_corpus
 

@@ -88,6 +88,7 @@ class Corpus:
         return_csv = []
         for row in self.csv_corpus:
             new_utterance = self.corpus_tuple_to_iso_task(row)
+            #print(new_utterance)
             if new_utterance is not None:
                 return_csv.append(new_utterance)
         if out_file is not None:

@@ -80,6 +80,7 @@ class SVMTrain(Trainer):
         train_pipeline.fit(featureset[0], [utt[1] for utt in dataset])
         path = Path(os.path.dirname(out_file))
         path.mkdir(parents=True, exist_ok=True)
+        #print(dir(train_pipeline))
         pickle.dump(train_pipeline, open(out_file, 'wb'))
 
     def train_som(self, out_file):
@@ -102,6 +103,7 @@ class SVMTrain(Trainer):
         # 4 - generate task cf classifier
         task_dataset = []
         for corpus in self.corpora:
+            #print(corpus.dump_iso_task_csv())
             task_dataset.extend(corpus.dump_iso_task_csv())
         if len(task_dataset) == 0:
             logger.error(f"Not enough data to train the {out_file} classifier! Please check README.md for "
@@ -118,6 +120,7 @@ class SVMTrain(Trainer):
         # 1 - generate dimension classifier - task
         dimension_dataset = []
         for corpus in self.corpora:
+            #print(corpus.dump_iso_dimension_task_csv())
             dimension_dataset.extend(corpus.dump_iso_dimension_task_csv())
         self.train_classifier(dimension_dataset,
                               self.build_features(dimension_dataset),
