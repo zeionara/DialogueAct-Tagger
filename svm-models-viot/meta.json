@@ -1,0 +1,8 @@
+{
+	"model_type": "SVM",
+	"out_folder": "/home/zeio/dat/svm-models-viot",
+	"corpora": [
+		"viot"
+	],
+	"acceptance_threshold": 10
+}
