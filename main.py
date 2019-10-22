@@ -9,7 +9,7 @@ import csv
 viot = Viot(sys.argv[-1])
 # print loaded corpus in csv format
 # print(dir(viot))
-# print(viot.corpus)
+viot.print_csv_corpus()
 
 
 svm_trainer = SVMTrain([viot])

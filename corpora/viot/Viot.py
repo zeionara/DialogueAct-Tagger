@@ -32,6 +32,8 @@ class Viot(Corpus):
         prev_speaker = None
         segment = 0
         prev_DAs = {"A": "%", "B": "%"}
+        counter = 0
+        dummy_labels = ['Yes', 'No', 'Other', None]
         with open(filename) as f:
             utterances = f.readlines()
         for line in utterances:
@@ -46,8 +48,9 @@ class Viot(Corpus):
                 segment += 1
             sentence = re.sub(r'\W+', ' ', sentence)  # this REGEX removes non alphanumeric characters
             sentence = ' '.join(sentence.split())  # this is just to make extra spaces collapse
-            csv_corpus.append((sentence, sw_tag, prev_DAs[speaker], segment, None, None))
+            csv_corpus.append((sentence, sw_tag, dummy_labels[counter % len(dummy_labels)], counter, None, None))
             prev_DAs[speaker] = sw_tag
+            counter += 1
         return csv_corpus
 
     def corpus_tuple_to_iso_task(self, corpus_tuple):
@@ -107,6 +110,11 @@ class Viot(Corpus):
         return tuple([corpus_tuple[0]] + [da, prevDA] + list(corpus_tuple[2:]))
         # else:
         #     return None
+
+    def print_csv_corpus(self):
+        print(f"{'text':150}\t{'act':20}\t{'prev act':20}\t{'segment':7}")
+        for line in self.csv_corpus:
+            print(f"{line[0]:150}\t{line[1]:20}\t{line[2] if line[2] else '-':20}\t{line[3]:5}")
 
     @staticmethod
     def da_to_dimension(corpus_tuple):
